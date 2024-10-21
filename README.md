@@ -17,7 +17,8 @@ CCI is implemented in **R**. You can install it via the following steps:
 install.packages(c("matrixStats", "ClusterR", "dplyr")) 
 
 # If hosted on GitHub
-devtools::install_github("your_github_username/CCI")
+devtools::install_github("wanlinjuan/CCI")
+```
 
 ## Method
 ```R
@@ -32,4 +33,4 @@ cc_impute = function(input,                         # expression matrix which ne
                      impute_what=NULL,              # specify which values will be imputed
                      normalize_method="sct"         # normalization method
                      )
-
+```
