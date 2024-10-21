@@ -1,13 +1,8 @@
 # Consensus Clustering Imputation (CCI)
 
-## Overview  
-**CCI (Consensus Clustering Imputation)** is a novel imputation method inspired by consensus clustering techniques. It aims to address the issue of dropouts in single-cell RNA sequencing (scRNA-seq) and other high-dimensional data. CCI enhances imputation accuracy by leveraging ensemble clustering methods to identify robust patterns in the data.
+## Inroduction
+**CCI (Consensus Clustering Imputation)** is a novel imputation method inspired by consensus clustering techniques. It aims to address the issue of dropouts in single-cell RNA sequencing (scRNA-seq) and other high-dimensional data. CCI borrows the information from similar cells by ensemble clustering to identify robust neighbors, and employs the cell-to-cell similarities to impute gene expression levels. 
 
-## Key Features  
-- **Robust Imputation:** Uses consensus clustering to improve the accuracy of missing value imputation.
-- **Scalable:** Can handle large `n × p` matrices where both `n` (samples) and `p` (features) are large.
-- **High Performance:** Suitable for single-cell RNA-seq data, reducing the impact of dropout events.
-- **Versatile:** Compatible with various types of high-dimensional datasets, not limited to scRNA-seq.
 
 ## Installation  
 CCI is implemented in **R**. You can install it via the following steps:
@@ -20,7 +15,8 @@ install.packages(c("matrixStats", "ClusterR", "dplyr"))
 devtools::install_github("wanlinjuan/CCI")
 ```
 
-## Method
+## Quick start
+
 ```R
 cc_impute = function(input,                         # expression matrix which needs to be imputed
                      num_sampling=50,               # number of repeated samplings
@@ -34,3 +30,8 @@ cc_impute = function(input,                         # expression matrix which ne
                      normalize_method="sct"         # normalization method
                      )
 ```
+The function returns an output imputed matrix. 
+
+## Contact
+For questions or support, please contact:
+Wanlin Juan - wjuan@mcw.edu
