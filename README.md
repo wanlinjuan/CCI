@@ -3,7 +3,7 @@
 ## Inroduction
 **CCI (Consensus Clustering Imputation)** is a novel imputation method inspired by consensus clustering techniques. It aims to address the issue of dropouts in single-cell RNA sequencing (scRNA-seq) and other high-dimensional data. CCI borrows the information from similar cells by ensemble clustering to identify robust neighbors, and employs the cell-to-cell similarities to impute gene expression levels. 
 
-
+<!-- 
 ## Installation  
 CCI is implemented in **R**. You can install it via the following steps:
 
@@ -14,6 +14,7 @@ install.packages(c("matrixStats", "ClusterR", "dplyr"))
 # If hosted on GitHub
 devtools::install_github("wanlinjuan/CCI")
 ```
+ -->
 
 ## Quick start
 
