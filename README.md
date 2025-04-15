@@ -1,0 +1,57 @@
+
+# ccImpute <img src="man/figures/logo.png" align="right" width="120"/>
+
+[![R-CMD-check](https://github.com/yourusername/ccImpute/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/yourusername/ccImpute/actions)
+
+## Introduction
+
+***CCI (Consensus Clustering Imputation)*** is a novel imputation method
+inspired by consensus clustering techniques. It aims to address the
+issue of dropouts in single-cell RNA sequencing (scRNA-seq) and other
+high-dimensional data. CCI borrows the information from similar cells by
+ensemble clustering to identify robust neighbors, and employs the
+cell-to-cell similarities to impute gene expression levels.
+
+## Installation
+
+You can install the development version of `ccImpute` from GitHub with:
+
+``` r
+#install.packages("devtools")
+#devtools::install_github("wanlinjuan/ccImpute")
+```
+
+## Example
+
+``` r
+library(ccImpute)
+library(Seurat)
+library(splatter)
+library(scuttle)
+
+set.seed(1)
+
+params <- newSplatParams(batchCells = 200, nGenes = 100)
+sim <- splatSimulate(params, verbose = FALSE)
+sim <- logNormCounts(sim)
+seurat_obj <- as.Seurat(sim)
+
+data <- GetAssayData(seurat_obj, slot = "data")
+hv_genes <- rownames(data)[1:50]
+
+# Impute dropout values
+imputed <- cc_impute(data, num_sampling = 5, select_genes = hv_genes, num_clusters = 2)
+```
+
+## Citation
+
+If you use ccImpute in your research, please cite:
+
+Juan, W.; Ahn, K.W.; Chen, Y.-G.; Lin, C.-W. CCI: A Consensus
+Clustering-Based Imputation Method for Addressing Dropout Events in
+scRNA-Seq Data. Bioengineering 2025, 12, 31.
+<https://doi.org/10.3390/bioengineering12010031>
+
+## License
+
+This package is licensed under GPL (\>= 3).
