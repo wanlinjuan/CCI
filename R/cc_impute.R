@@ -106,6 +106,7 @@ cc_impute = function(input,                         # expression matrix which ne
     (cm_neighbor %*% data_input[i,]) / (cm_neighbor %*% (data_input[i,] != 0) + 0.000001)
   }
 
+  data=input
   if(is.null(impute_what)){
     impute_index = (data==0)
   }else{
@@ -132,6 +133,10 @@ cc_impute = function(input,                         # expression matrix which ne
 
     data_output <- t(sapply(1:dim(data_input)[1], impute_weighted_ave))
 
+   impute_index_genes2sample <- as.matrix(impute_index_genes2sample)
+    storage.mode(impute_index_genes2sample) <- "logical"
+
+
     replace_indices <- which(impute_index_genes2sample, arr.ind = TRUE)
     final_data_select_genes[replace_indices] = data_output[replace_indices]
     final_data[genes2sample,] = final_data_select_genes
@@ -144,5 +149,3 @@ cc_impute = function(input,                         # expression matrix which ne
 
   return(finaldata = finalcount)
 }
-
-
