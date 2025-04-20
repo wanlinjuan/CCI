@@ -12,14 +12,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
-```{r setup, warning=FALSE, message=FALSE}
+
+
+``` r
 library(ccImpute)
 library(Seurat)
 library(splatter)
@@ -27,7 +23,8 @@ library(scater)
 library(ggpubr)
 ```
 
-```{r, warning=FALSE, message=FALSE}
+
+``` r
 set.seed(1)
 
 # Parameters for data simulation
@@ -43,7 +40,8 @@ dropout.mid <- 2             # Midpoint for dropout function
 dropout.shape <- -1          # Shape parameter for dropout
 ```
 
-```{r, warning=FALSE, message=FALSE}
+
+``` r
 # Simulated data without dropouts (sim1)
 # -------------------------------------
 params.groups <- newSplatParams(batchCells = batchCells, nGenes = nGenes, seed = 1)
@@ -106,7 +104,8 @@ sim2.s <- RunUMAP(sim2.s, dims = 1:10, verbose = FALSE)
 ```
 
 
-```{r, warning=FALSE, message=FALSE}
+
+``` r
 # Identify top 100 highly variable genes
 hv_genes <- VariableFeatures(sim2.s)[1:100]
 
@@ -125,7 +124,8 @@ newdata <- cc_impute(data,
                       normalize_method = "log")
 ```
 
-```{r, warning=FALSE, message=FALSE}
+
+``` r
 # Add imputed data as a new assay in the Seurat object
 cci_imputed <- sim2.s
 cci_imputed[["imputed"]] <- CreateAssayObject(data = newdata)
@@ -139,13 +139,19 @@ cci_imputed <- RunPCA(cci_imputed, features = VariableFeatures(cci_imputed), ver
 cci_imputed <- RunUMAP(cci_imputed, dims = 1:10, verbose = FALSE)
 ```
 
-```{r, warning=FALSE, message=FALSE, fig.width=8, fig.height=12}
+
+``` r
 # Assess performance with PCA plots
 p1 <- DimPlot(sim1.s, reduction = "pca", group.by = "Group") + ggtitle("Without dropout")
 p2 <- DimPlot(sim2.s, reduction = "pca", group.by = "Group") + ggtitle("With dropout")
 p3 <- DimPlot(cci_imputed, reduction = "pca", group.by = "Group") + ggtitle("Imputed by CCI")
 summary_pca <- ggarrange(p1, p2, p3, nrow = 3, ncol = 1)
 print(summary_pca)
+```
+
+![](cci-introduction_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+
+``` r
 
 # Assess performance with UMAP plots
 p1 <- DimPlot(sim1.s, reduction = "umap", group.by = "Group") + ggtitle("Without dropout")
@@ -154,4 +160,6 @@ p3 <- DimPlot(cci_imputed, reduction = "umap", group.by = "Group") + ggtitle("Im
 summary_umap <- ggarrange(p1, p2, p3, nrow = 3, ncol = 1)
 print(summary_umap)
 ```
+
+![](cci-introduction_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
