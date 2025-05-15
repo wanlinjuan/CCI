@@ -70,7 +70,7 @@ cc_impute = function(input,                         # expression matrix which ne
     subset = input[genes_sample,]
     subset.seurat = CreateSeuratObject(counts=subset)
     if(normalize_method=="sct"){
-      subset.seurat = SCTransform(subset.seurat,assay="originalexp",verbose=FALSE)
+      subset.seurat = SCTransform(subset.seurat,verbose=FALSE)
     }else if(normalize_method=="log"){
       subset.seurat = NormalizeData(subset.seurat)
       subset.seurat = FindVariableFeatures(subset.seurat)
